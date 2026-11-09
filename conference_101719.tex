@@ -226,7 +226,7 @@ Detailed comparison is presented in Table~\ref{table:hybrid_vs_onchian}, and it 
 
 
 \subsection{Load tests and data collection}
-To evaluate the real-world performance and scalability of both the fully on-chain and hybrid Blackjack dApps, the open-source k6 testing framework was used. Both architectures were deployed on the Arbitrum One mainnet, a Layer-2 network, so the measured costs and confirmation times reflect real network conditions. This setup simulated multiple users performing game actions concurrently, enabling accurate measurement of transaction times and costs for both architectures when deployed on the Arbitrum One mainnet.
+To evaluate the real-world performance and scalability of both the fully on-chain and hybrid Blackjack dApps, the open-source k6 testing framework was used. Both architectures were deployed on the Arbitrum One mainnet, a Layer-2 network, so the measured costs and confirmation times reflect real network conditions. The test scenario was the Blackjack dApp itself, with simulated users playing the game actions reported in Table~\ref{tab:comparison_blackjack}. This setup simulated multiple users performing game actions concurrently, enabling accurate measurement of transaction times and costs for both architectures when deployed on the Arbitrum One mainnet.
 
 During each test session, the following metrics were recorded: 
 
