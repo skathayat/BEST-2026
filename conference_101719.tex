@@ -66,7 +66,7 @@ A blockchain is a decentralized and tamper-resistant public ledger maintained ac
 
 Ethereum, one of the leading blockchain platforms, enables developers to build decentralized applications (dApps) through smart contracts \cite{Buterin2014,Palladino2019}. The smart contracts are self-executing programs deployed on-chain that automatically run when triggered by transactions. These contracts can store state, manage assets, and enforce rules, supporting a wide variety of decentralized services. Solidity is the primary programming language for writing smart contracts on Ethereum-compatible blockchains. In this Web3 architecture, dApps serve as the backend logic in place of centralized servers, allowing users to interact directly with the blockchain network \cite{Ray2023}.
 
-\subsection{Scalability and layer 2 solutions}
+\subsection{Scalability and Layer-2 Solutions}
 Scalability is the ability of the blockchain to process many transactions or support
 many users quickly and at low cost, and it is a well-known challenge in blockchain design \cite{Scalability8968381}. Layer-2 solutions, such as state channels and rollups, address these limits by moving transaction execution off the base layer while retaining its security guarantees \cite{Gudgeon2020,Thibault2022}.
 
@@ -108,7 +108,7 @@ In the \textit{evaluation} stage, both quantitative and qualitative analyses wer
 
 
 
-\section{Prototype } \label{sec:prototype}
+\section{Prototype} \label{sec:prototype}
 \subsection{Use Case}
 As a use case, the study employed the classic Blackjack game, a well-known two-player card game between a dealer and a player. The goal is to achieve a hand value as close to 21 as possible without exceeding it, while surpassing the dealer’s hand. Numbered cards are worth their face value, face cards count as ten, and Aces as one or eleven.
 
@@ -225,7 +225,7 @@ Same stack plus backend (Node.js, Express), SIWE and JWT for authentication, and
 Detailed comparison is presented in Table~\ref{table:hybrid_vs_onchian}, and it highlights the core trade-off between the two architectures. The fully on-chain model maximizes transparency and decentralization but suffers from high gas costs and latency, making it less suitable for large-scale or fast-paced gameplay. The hybrid model improves scalability by moving gameplay off-chain, though it introduces trust assumptions in the backend server. Evaluating both approaches on a Layer-2 network (Arbitrum One) shows how these architectural choices affect performance metrics such as gas usage and confirmation latency, and what they imply for designing scalable Web3 games.
 
 
-\subsection{Load tests and data collection}
+\subsection{Load Tests and Data Collection}
 To evaluate the real-world performance and scalability of both the fully on-chain and hybrid Blackjack dApps, the open-source k6 testing framework was used. Both architectures were deployed on the Arbitrum One mainnet, a Layer-2 network, so the measured costs and confirmation times reflect real network conditions. The test scenario was the Blackjack dApp itself, with simulated users playing the game actions reported in Table~\ref{tab:comparison_blackjack}. This setup simulated multiple users performing game actions concurrently, enabling accurate measurement of transaction times and costs for both architectures when deployed on the Arbitrum One mainnet.
 
 During each test session, the following metrics were recorded: 
@@ -244,8 +244,8 @@ The transaction cost data were gathered from the Arbiscan transaction records of
     \item Hybrid: \texttt{\scriptsize 0x91A1473ec1d0401ECA42Cb9a272741D3fEFc8762}
 \end{itemize}
 
-\subsection{User testing} \label{sec:usertesting}
-User testing was carried out to examine how players experience and assess two different Web3 Blackjack game architectures: a fully on-chain version and a hybrid (Web 2.5) version. The main objective was to understand user preferences, their perceptions of speed and transaction costs, and the importance they place on transparency and trust in each version.
+\subsection{User Testing} \label{sec:usertesting}
+User testing was carried out to examine how players experience and assess two different Web3 Blackjack game architectures: a fully on-chain version and a hybrid (Web 2.5, combining off-chain and on-chain components) version. The main objective was to understand user preferences, their perceptions of speed and transaction costs, and the importance they place on transparency and trust in each version.
 
 Participants were invited individually to the office to complete their testing sessions. To ensure procedural consistency, the author served as the sole moderator and interviewer. Each session began with a brief overview of the study’s objectives. Prior to gameplay, participants’ in-game balances were pre-funded and the betting amount was pre-configured, thereby eliminating the need for wallet setup or fund transfers and allowing the evaluation to focus solely on gameplay interaction.
 
@@ -253,9 +253,9 @@ Following the gameplay phase, participants completed a printed questionnaire and
 
 
 
-\section{Quantitative results}
+\section{Quantitative Results}
 
-\subsection{On-Chain vs. Hybrid performance}
+\subsection{On-Chain vs. Hybrid Performance}
 
 This section presents the technical results from testing two different versions of the Blackjack
 application: a fully on-chain version and a hybrid version. The main purpose of this section is to
@@ -323,11 +323,11 @@ The first phase of the user study explores participants’ initial experiences w
 \hline
 \textbf{Preference Statement} & \textbf{Number of Responses} \\
 \hline
-Preferred the first version much more     & 0 \\
-Preferred the first version a bit more    & 3 \\
+Preferred the on-chain version much more     & 0 \\
+Preferred the on-chain version a bit more    & 3 \\
 No noticeable difference                  & 5 \\
-Preferred the second version a bit more   & 9 \\
-Preferred the second version much more    & 6 \\
+Preferred the hybrid version a bit more   & 9 \\
+Preferred the hybrid version much more    & 6 \\
 \hline
 \end{tabular}
 \end{table}
@@ -362,11 +362,11 @@ Preferred the second version much more    & 6 \\
 \hline
 \textbf{Perceived Speed Difference} & \textbf{Number of Responses} \\
 \hline
-The first version much faster      & 0 \\
-The first version a bit faster     & 1 \\
+The on-chain version much faster      & 0 \\
+The on-chain version a bit faster     & 1 \\
 No noticeable difference           & 8 \\
-The second version a bit faster    & 6 \\
-The second version much faster     & 8 \\
+The hybrid version a bit faster    & 6 \\
+The hybrid version much faster     & 8 \\
 \hline
 \end{tabular}
 \end{table}
@@ -394,7 +394,7 @@ Perceived speed followed a similar pattern: eight users found the hybrid version
 %
 Confirmation prompts strongly influenced preferences. Most users found them “a bit tiresome” (nine) or “very tiresome” (six), whereas only three enjoyed confirming each action, four viewed it positively, and one was indifferent.
 
-\subsection{Openness and self-verification}
+\subsection{Openness and Self-Verification}
 This section examines how users perceive the value of openness and transparency in Web3 games. It investigates how important it is for them to personally verify fairness rather than relying solely on the app provider’s assurances, and how they weigh these factors against transaction costs. These questions are particularly significant in games that involve money or risk, where trust plays a central role.
 
 \begin{table}[h!]
@@ -432,7 +432,7 @@ Lower cost is much more important than openness & 1 \\
 \end{tabular}
 \end{table}
 
-\subsection{Overall user preference}
+\subsection{Overall User Preference}
 
 The results indicate that user preferences were fairly split between the two versions. Eleven participants favored the open version, nine favored the hybrid version, and three did not state a preference. This distribution implies that each version offers distinct benefits and may attract different types of players based on their priorities.
 
@@ -457,7 +457,7 @@ Definitely the hybrid version & 4 \\
 
 \section{Qualitative Results}
 
-\subsection{Friction from confirmation prompts}
+\subsection{Friction from Confirmation Prompts}
 The most noticeable trend in users’ initial impressions was the significant effect that confirmation prompts had on gameplay flow and enjoyment. Many users preferred the hybrid version, appreciating its faster, smoother, and more immersive experience. They noted that not having to confirm every action made the game feel seamless, helped maintain focus, and enabled them to complete more rounds in less time.
 
 \begin{quote}
@@ -490,7 +490,7 @@ Many users also found the repeated confirmation prompts in the on-chain version 
 
 Overall, these findings indicate that confirmation prompts strongly influenced the user experience. Most users saw them as a hindrance to smooth, enjoyable gameplay and favored the hybrid app’s fewer interruptions and better flow. However, some participants appreciated the added control and sense of security that confirmations offered.
 
-\subsection{Openness remains important for fairness and trust}
+\subsection{Openness Remains Important for Fairness and Trust}
 
 Most users emphasized that openness and transparency were crucial, particularly in games involving real money. They wanted assurance that the game was fair and not manipulated. Many indicated they would be willing to pay a small premium for this peace of mind.
 
@@ -560,7 +560,7 @@ The results suggest the following guidelines for Web3 game designers.
 \section{Threats to Validity}
 Several limitations should be considered when interpreting the results. The user study had a small sample, with 23 responses in total, so the preference distributions are indicative and not statistically conclusive. The author served as the sole moderator and interviewer, which supports consistency but may have influenced participants' answers. Participants played with pre-funded balances and a pre-configured bet, so the study does not capture wallet setup or funding friction, which are known onboarding barriers. Responses were self-reported through a questionnaire and a short interview. Only one game, Blackjack, was studied, so the findings may not transfer to other game genres or to higher-stakes settings. Finally, the cost comparison depends on who pays for settlement: in the hybrid version the operator's oracle pays for finalizing the game, which lowers the player's cost but not the total cost of the system.
 
-\section{Concluding remarks}
+\section{Concluding Remarks}
 This study highlights a fundamental trade-off in Web3 game design between decentralization and usability. The technical evaluation shows that fully on-chain architectures provide strong guarantees of transparency, verifiability, and trustlessness, but introduce significant friction through higher transaction costs and confirmation delays. These constraints negatively impact gameplay fluidity, making fully on-chain solutions less suitable for fast-paced or interaction-heavy gaming scenarios. In contrast, the hybrid architecture improves scalability, reduces latency, and lowers user costs by offloading gameplay logic off-chain, resulting in a smoother and more responsive experience.
 
 The user study findings reinforce this trade-off. Most participants preferred the hybrid version due to its seamless gameplay and reduced need for repeated confirmations, which were widely perceived as disruptive in the fully on-chain version. At the same time, transparency and fairness remained important considerations, particularly in contexts involving real money or higher perceived risk. While users expressed a desire for verifiability, most did not expect to actively audit the system themselves; rather, the availability of transparency contributed to a general sense of trust.
