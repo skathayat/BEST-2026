@@ -294,7 +294,7 @@ Finalize Game        & Hybrid   & 0.0028 & App oracle  & 1674 \\
 \end{tabular}
 \end{table}
 
-To compare the cost of a whole round, we sum the actions of Table~\ref{tab:comparison_blackjack} for a round in which the player joins a table, hits once, stands and prepares the next round. On-chain this costs the player about 0.046 USD. In the hybrid version the same round consists of placing a bet (0.0016 USD, paid by the player) and finalization (0.0028 USD, paid by the application oracle), i.e., 0.0044 USD in total. The player thus pays roughly 29 times less per round, and the combined cost is about 10 times lower. The costs were measured on the Arbitrum One mainnet at the time of testing, so they vary with gas price and ETH/USD rate, and a round with more hits widens the gap because each on-chain hit adds a transaction.
+To compare the cost of a whole round, we sum the actions of Table~\ref{tab:comparison_blackjack} for a round in which the player joins a table, hits once, stands and prepares the next round. On-chain this costs the player about 0.046 USD. In the hybrid version the same round consists of placing a bet (0.0016 USD, paid by the player) and finalization (0.0028 USD, paid by the application oracle), i.e., 0.0044 USD in total. The player thus pays roughly 29 times less per round, and the combined cost is about 10 times lower. The costs are the USD amounts recorded on Arbiscan for the transactions on the Arbitrum One mainnet at the time of testing, so they vary with the gas price, and a round with more hits widens the gap because each on-chain hit adds a transaction.
 
 \begin{figure}[t]
 \centering
@@ -404,7 +404,7 @@ This section examines how users perceive the value of openness and transparency 
 
 \begin{table}[h!]
 \centering
-\caption{Importance of verifying fairness and of openness (number of participants, $n=23$).}
+\caption{Importance of being able to verify fairness and of openness (number of participants, $n=23$).}
 \label{tab:verify_openness}
 \setlength{\tabcolsep}{6pt}
 \begin{tabular}{@{}lcc@{}}
