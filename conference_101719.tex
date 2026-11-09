@@ -8,6 +8,7 @@
 \usepackage{textcomp}
 \usepackage{xcolor}
 \usepackage{tikz}
+\usepackage{pgfplots}\pgfplotsset{compat=1.16}
 \usetikzlibrary{arrows.meta,positioning,fit,backgrounds}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
@@ -23,7 +24,7 @@
 \maketitle
 
 \begin{abstract}
-This study investigates the trade-offs between fully on-chain and hybrid architectures for Web3 games deployed on Layer-2 blockchain networks. Using a Blackjack-based prototype, two implementations were developed: a fully on-chain version where all gameplay logic is executed via smart contracts, and a hybrid version where gameplay occurs off-chain while critical transactions are settled on-chain. The research applies a Design Science Research methodology, combining technical performance evaluation with user-centered analysis through load testing and user studies. Results show that the fully on-chain architecture provides higher transparency and verifiability but suffers from increased transaction costs and latency, negatively impacting gameplay flow. In contrast, the hybrid approach significantly improves responsiveness and reduces user costs by minimizing on-chain interactions, though it introduces partial trust in backend systems. User study findings indicate that most participants preferred the hybrid version due to its smoother experience, while still valuing transparency in high-stakes contexts. The study highlights that the optimal architecture depends on context, with hybrid solutions offering better usability for casual gaming and fully on-chain systems being more suitable for trust-sensitive scenarios.
+This study investigates the trade-offs between fully on-chain and hybrid architectures for Web3 games deployed on Layer-2 blockchain networks. Using a Blackjack-based prototype, two implementations were developed: a fully on-chain version where all gameplay logic is executed via smart contracts, and a hybrid version where gameplay occurs off-chain while critical transactions are settled on-chain. The research applies a Design Science Research methodology, combining technical performance evaluation with user-centered analysis through load testing and user studies. Results show that the fully on-chain architecture provides higher transparency and verifiability but suffers from increased transaction costs and latency, negatively impacting gameplay flow. In contrast, the hybrid approach significantly improves responsiveness and reduces user costs by minimizing on-chain interactions, though it introduces partial trust in backend systems. In a user study with 23 participants, 15 preferred the hybrid version for its smoother experience, yet transparency remained important: when asked directly, 11 favored the open version and 9 the hybrid. The study highlights that the optimal architecture depends on context, with hybrid solutions offering better usability for casual gaming and fully on-chain systems being more suitable for trust-sensitive scenarios.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -34,25 +35,27 @@ Web3 games, blockchain, Layer-2, on-chain architecture, hybrid architecture, usa
 
 The rise of Web3 gaming has introduced transformative possibilities for decentralization, transparency, and player-controlled digital assets, fundamentally reshaping how users engage with games \cite{Min2019}. Central to this evolution is the architectural choice—fully on-chain versus hybrid—which significantly influences both technical performance and user experience. Fully on-chain architectures maximize transparency and verifiability, enabling players to independently confirm game logic and asset ownership, but often incur higher transaction fees, increased latency, and gameplay friction \cite{Min2019,MinCai2019}. Hybrid architectures, by contrast, reduce cost and latency by offloading some operations off-chain, though this comes at the expense of full decentralization and self-verification.
 
-A comprehensive understanding of Web3 gaming adoption requires integrating both technical and user-centered perspectives. On the technical side, scalability, transaction costs, and latency directly affect the practicality of fully on-chain and hybrid games on Layer 2 blockchain solutions. From the user perspective, players’ perceptions of these trade-offs—including the value they assign to transparency, trust, and convenience—shape engagement and acceptance. These perceptions can also vary depending on the game context, such as social, casual, or gambling-focused experiences.
+A comprehensive understanding of Web3 gaming adoption requires integrating both technical and user-centered perspectives. On the technical side, scalability, transaction costs, and latency directly affect the practicality of fully on-chain and hybrid games on Layer-2 blockchain solutions. From the user perspective, players’ perceptions of these trade-offs—including the value they assign to transparency, trust, and convenience—shape engagement and acceptance. These perceptions can also vary depending on the game context, such as social, casual, or gambling-focused experiences.
 
 This study addresses three interconnected dimensions of Web3 gaming, each reflecting a critical intersection between technological capability and human perception in decentralized environments:
 
 \begin{enumerate}
-    \item \textbf{Technical and experiential factors:} This dimension examines the foundational performance characteristics of fully on-chain and hybrid architectures on Layer~2 blockchain networks. It explores how scalability, transaction throughput, confirmation latency, and operational costs influence the overall feasibility of multiplayer gaming applications. Beyond raw performance metrics, this aspect also considers the impact of these technical parameters on gameplay experience—specifically, how transaction delays, block times, or on-chain computation affect the fluidity, responsiveness, and continuity of player interaction. By comparing these architectures under realistic gaming conditions, this dimension aims to identify the extent to which Layer~2 solutions can deliver both technical efficiency and engaging user experiences.
+    \item \textbf{Technical and experiential factors:} how scalability, throughput, confirmation latency and operational costs on Layer-2 networks affect the feasibility of gaming applications, and how transaction delays and on-chain computation affect the fluidity and responsiveness of play.
 
-    \item \textbf{User perception and evaluation:} While technical efficiency is crucial, the long-term adoption of Web3 games depends on how users interpret and value the trade-offs between decentralization, transparency, and usability. This dimension investigates players’ subjective evaluations of these factors, focusing on how they balance ideals such as fairness, openness, and self-custody against practical concerns like transaction costs, performance, and ease of access. It further examines how players’ trust in smart contracts, developers, and platforms influences their perception of risk and value within fully on-chain and hybrid systems. By capturing these attitudes through qualitative and quantitative methods, this dimension aims to map the psychological and experiential landscape that underpins user adoption.
+    \item \textbf{User perception and evaluation:} how players interpret and value the trade-offs between decentralization, transparency and usability, including their trust in smart contracts, developers and platforms.
 
-    \item \textbf{Willingness to accept trade-offs:} The third dimension explores the behavioral and contextual factors that determine users’ readiness to accept increased costs or gameplay friction in return for greater transparency and verifiability. It seeks to identify the conditions under which players prioritize trustless interaction over convenience—such as in competitive, gambling, or high-stakes economic game environments—versus scenarios where usability and efficiency dominate preferences. This analysis highlights how variations in game genre, perceived risk, and personal values shape users’ willingness to engage with more decentralized systems, thereby offering insights into the nuanced adoption patterns of fully on-chain versus hybrid gaming architectures.
+    \item \textbf{Willingness to accept trade-offs:} the conditions under which players accept higher costs or gameplay friction in return for transparency and verifiability, for example in competitive or high-stakes games compared with casual ones.
 \end{enumerate}
 
 
 Guided by these dimensions, the research explores the following core questions:
 \begin{enumerate}
-    \item How do technical performance (especially transaction cost and confirmation time) differ between fully on-chain and hybrid Web3 games on Layer 2?
+    \item How do technical performance (especially transaction cost and confirmation time) differ between fully on-chain and hybrid Web3 games on Layer-2?
     \item How do users perceive and evaluate the trade-offs between decentralization, transparency, transaction costs, and gameplay experience?
     \item What factors influence users’ willingness to accept higher costs or friction for enhanced transparency and trust, and how do these factors vary across game contexts?
 \end{enumerate}
+
+The paper makes four contributions. First, it presents two implementations of the same Blackjack game, a fully on-chain one and a hybrid one. Second, it compares them technically in terms of transaction cost and confirmation time. Third, it reports a user study with 23 participants, analyzed quantitatively and through thematic analysis. Fourth, it derives design guidelines for choosing between the two architectures. The rest of the paper is organized as follows. Section~II reviews related literature, Section~III describes the research method, Section~IV presents the prototype, Sections~V and~VI report the quantitative and qualitative results, Section~VII discusses the findings, Section~VIII covers threats to validity, and Section~IX concludes.
 
 By integrating technical evaluation with user-centered research, this study aims to provide a holistic understanding of the practical, experiential, and behavioral dimensions that shape the feasibility and adoption of modern Web3 gaming architectures.
 
@@ -61,7 +64,7 @@ By integrating technical evaluation with user-centered research, this study aims
 \subsection{Blockchain and dApps}
 A blockchain is a decentralized and tamper-resistant public ledger maintained across a peer-to-peer network \cite{Nakamoto2008}. Each state change is recorded as a transaction, cryptographically signed using a user’s private key. Transactions are grouped into blocks, with each block referencing the previous one through a cryptographic hash, forming an immutable chain. Consensus mechanisms, such as proof-of-work, ensure agreement among network nodes on the blockchain’s current state \cite{Xu2023}. 
 
-Ethereum, one of the leading blockchain platforms, enables developers to build decentralized applications (dApps) through smart contracts \cite{Buterin2014,Palladino2019}. The smart contracts are self-executing programs deployed on-chain that automatically run when triggered by transactions. These contracts can store state, manage assets, and enforce rules, supporting a wide variety of decentralized services. Solidity is the primary programming language for writing smart contracts on Ethereum-compatible blockchains. In this Web 3 architecture, dApps serve as the backend logic in place of centralized servers, allowing users to interact directly with the blockchain network \cite{Ray2023}.
+Ethereum, one of the leading blockchain platforms, enables developers to build decentralized applications (dApps) through smart contracts \cite{Buterin2014,Palladino2019}. The smart contracts are self-executing programs deployed on-chain that automatically run when triggered by transactions. These contracts can store state, manage assets, and enforce rules, supporting a wide variety of decentralized services. Solidity is the primary programming language for writing smart contracts on Ethereum-compatible blockchains. In this Web3 architecture, dApps serve as the backend logic in place of centralized servers, allowing users to interact directly with the blockchain network \cite{Ray2023}.
 
 \subsection{Scalability and layer 2 solutions}
 Scalability is the ability of the blockchain to process many transactions or support
@@ -136,7 +139,7 @@ In \textit{Hybrid Blackjack} (Fig.~\ref{fig:architectures}), the hybrid version 
 \node[ptitle] at (-0.4,1.7) {(a) Fully on-chain architecture};
 \node[comp] (fe1) at (1.7,0) {\textbf{React frontend}\\Wagmi, Viem, MetaMask\\Submits transactions};
 \node[comp,text width=4.0cm] (c1) at (13.8,0) {\textbf{Smart contract (Solidity)}\\Players, dealing, randomness\\State transitions, bets, payouts};
-\begin{pgfonlayer}{background}\node[onc,fit=(c1),label={[font=\scriptsize,text=black!70,anchor=south east]north east:On-chain (Layer 2)}] {};\end{pgfonlayer}
+\begin{pgfonlayer}{background}\node[onc,fit=(c1),label={[font=\scriptsize,text=black!70,anchor=south east]north east:On-chain (Layer-2)}] {};\end{pgfonlayer}
 \draw[arr] ([yshift=0.3cm]fe1.east) -- node[lab]{one transaction per game action} ([yshift=0.3cm]c1.west);
 \draw[darr] ([yshift=-0.3cm]c1.west) -- node[lab]{contract events, polling} ([yshift=-0.3cm]fe1.east);
 % ---------- (b) hybrid ----------
@@ -146,7 +149,7 @@ In \textit{Hybrid Blackjack} (Fig.~\ref{fig:architectures}), the hybrid version 
 \node[comp] (be2) at (7.7,0) {\textbf{Backend (Node.js/Express)}\\Game logic, SIWE and JWT\\Redis in-memory state};
 \node[comp,text width=4.0cm] (c2) at (13.8,0) {\textbf{Smart contract (Solidity)}\\Verifies EIP-712 signatures\\Balances, solvency, settlement};
 \begin{pgfonlayer}{background}\node[offc,fit=(fe2)(be2),label={[font=\scriptsize,text=black!70,anchor=south west]north west:Off-chain}] {};\end{pgfonlayer}
-\begin{pgfonlayer}{background}\node[onc,fit=(c2),label={[font=\scriptsize,text=black!70,anchor=south east]north east:On-chain (Layer 2)}] {};\end{pgfonlayer}
+\begin{pgfonlayer}{background}\node[onc,fit=(c2),label={[font=\scriptsize,text=black!70,anchor=south east]north east:On-chain (Layer-2)}] {};\end{pgfonlayer}
 \draw[arr] ([yshift=0.3cm]fe2.east) -- node[lab]{requests} ([yshift=0.3cm]be2.west);
 \draw[darr] ([yshift=-0.3cm]be2.west) -- node[lab]{responses} ([yshift=-0.3cm]fe2.east);
 \draw[arr] (be2.east) -- node[lab]{signed result} (c2.west);
@@ -219,7 +222,7 @@ Same stack plus backend (Node.js, Express), SIWE and JWT for authentication, and
 \end{tabular}
 \end{table*}
 
-Detailed comparison is presented in table \ref{table:hybrid_vs_onchian}, and it highlights the core trade-off between the two architectures. The fully on-chain model maximizes transparency and decentralization but suffers from high gas costs and latency, making it less suitable for large-scale or fast-paced gameplay. The hybrid model improves scalability by moving gameplay off-chain, though it introduces trust assumptions in the backend server. Evaluating both approaches across different Layer 2 networks shows how these architectural choices affect performance metrics such as gas usage and confirmation latency, and what they imply for designing scalable Web3 games.
+Detailed comparison is presented in Table~\ref{table:hybrid_vs_onchian}, and it highlights the core trade-off between the two architectures. The fully on-chain model maximizes transparency and decentralization but suffers from high gas costs and latency, making it less suitable for large-scale or fast-paced gameplay. The hybrid model improves scalability by moving gameplay off-chain, though it introduces trust assumptions in the backend server. Evaluating both approaches across different Layer-2 networks shows how these architectural choices affect performance metrics such as gas usage and confirmation latency, and what they imply for designing scalable Web3 games.
 
 
 \subsection{Load tests and data collection}
@@ -305,6 +308,27 @@ Preferred the second version much more    & 6 \\
 \end{table}
 
 
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[xbar stacked,width=\columnwidth,height=3.6cm,bar width=11pt,
+  xmin=0,xmax=23,xlabel={Number of responses (of 23)},xlabel style={font=\footnotesize},
+  ytick=data,symbolic y coords={Speed,Preference},yticklabel style={font=\footnotesize},xticklabel style={font=\footnotesize},
+  enlarge y limits=0.45,
+  legend style={at={(0.5,-0.42)},anchor=north,legend columns=3,font=\scriptsize,/tikz/every even column/.append style={column sep=0.2cm}},
+  legend image post style={xscale=0.8}]
+\addplot[fill=gray!70,draw=white] coordinates {(0,Preference) (0,Speed)};
+\addplot[fill=gray!40,draw=white] coordinates {(3,Preference) (1,Speed)};
+\addplot[fill=white,draw=black!50] coordinates {(5,Preference) (8,Speed)};
+\addplot[fill=blue!35,draw=white] coordinates {(9,Preference) (6,Speed)};
+\addplot[fill=blue!75,draw=white] coordinates {(6,Preference) (8,Speed)};
+\legend{On-chain much,On-chain a bit,No difference,Hybrid a bit,Hybrid much}
+\end{axis}
+\end{tikzpicture}
+\caption{Preference and perceived speed between the on-chain and hybrid versions (23 responses each).}
+\label{fig:responses}
+\end{figure}
+
 \begin{table}[htbp]
 \centering
 \caption{Perceived difference in speed between the two versions}
@@ -339,7 +363,7 @@ Enjoyed having to confirm every choice & 3 \\
 \end{tabular}
 \end{table}
 
-Most participants preferred the hybrid version, which required fewer confirmation actions. As shown in Table~\ref{tab:user_preferences}, six users preferred it “much more,” nine “a bit more,” while only three favored the fully on-chain version slightly, and none preferred it strongly. Five users noticed no major difference.
+Most participants preferred the hybrid version, which required fewer confirmation actions. As shown in Table~\ref{tab:user_preferences} and Fig.~\ref{fig:responses}, six users preferred it “much more,” nine “a bit more,” while only three favored the fully on-chain version slightly, and none preferred it strongly. Five users noticed no major difference.
 %
 Perceived speed followed a similar pattern: eight users found the hybrid version “much faster,” six “a bit faster,” and only one considered the on-chain version faster—a participant who had encountered a buggy build. The remaining eight reported no difference in speed.
 %
@@ -383,7 +407,7 @@ Lower cost is much more important than openness & 1 \\
 \end{tabular}
 \end{table}
 
-\subsection{Over user preference}
+\subsection{Overall user preference}
 
 The results indicate that user preferences were fairly split between the two versions. Eleven participants favored the open version, nine favored the hybrid version, and three did not state a preference. This distribution implies that each version offers distinct benefits and may attract different types of players based on their priorities.
 
@@ -489,7 +513,7 @@ Table~\ref{tab:rq_summary} summarizes how the evidence answers the three researc
 \centering
 \caption{Summary of findings per research question}
 \label{tab:rq_summary}
-\begin{tabular}{p{0.8cm}p{3.5cm}p{3.5cm}}
+\begin{tabular}{p{0.7cm}p{3.35cm}p{3.35cm}}
 \hline
 \textbf{RQ} & \textbf{Evidence} & \textbf{Finding} \\
 \hline
