@@ -559,7 +559,7 @@ The results suggest the following guidelines for Web3 game designers.
     \item State clearly which parts of a hybrid design require trusting the backend, because the hybrid version relies on the operator to run the game logic and sign results honestly.
 \end{enumerate}
 
-\section{Threats to Validity}
+\subsection{Threats to Validity}
 Several limitations should be considered when interpreting the results. The user study had a small sample, with 23 responses in total, so the preference distributions are indicative and not statistically conclusive. The author served as the sole moderator and interviewer, which supports consistency but may have influenced participants' answers. Participants played with pre-funded balances and a pre-configured bet, so the study does not capture wallet setup or funding friction, which are known onboarding barriers. Responses were self-reported through a questionnaire and a short interview. The load test used three wallets playing at a single table, so it measures per-action cost and latency under light multiplayer load and does not show how either architecture scales to many concurrent players. Only one game, Blackjack, was studied, so the findings may not transfer to other game genres or to higher-stakes settings. Finally, the cost comparison depends on who pays for settlement: in the hybrid version the operator's oracle pays for finalizing the game, which lowers the player's cost but not the total cost of the system.
 
 \section{Concluding Remarks}
