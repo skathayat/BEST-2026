@@ -1,4 +1,4 @@
-\documentclass[conference]{IEEEtran}
+\documentclass[10pt,conference]{IEEEtran}
 \IEEEoverridecommandlockouts
 % The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
 \usepackage{cite}
@@ -9,22 +9,14 @@
 \usepackage{xcolor}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+% Highlight for items needing attention. Before submitting, change the next line to \newcommand{\attn}[1]{#1}
+\newcommand{\attn}[1]{\colorbox{yellow}{#1}}
 \begin{document}
 
 \title{Comparing On-Chain vs Hybrid Architectures for Web3 Games on Layer-2}
 
-\author{\IEEEauthorblockN{1\textsuperscript{st} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
-\and
-\IEEEauthorblockN{2\textsuperscript{nd} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
-}
+% Double-blind review: author names and affiliations omitted
+\author{\IEEEauthorblockN{Anonymous Author(s)}}
 
 \maketitle
 
@@ -33,12 +25,12 @@ This study investigates the trade-offs between fully on-chain and hybrid archite
 \end{abstract}
 
 \begin{IEEEkeywords}
-component, formatting, style, styling, inserta
+Web3 games, blockchain, Layer-2, on-chain architecture, hybrid architecture, usability, trust
 \end{IEEEkeywords}
 
-\section{Introduction}
+\section{Introduction} \label{sec:intro}
 
-The rise of Web3 gaming has introduced transformative possibilities for decentralization, transparency, and player-controlled digital assets, fundamentally reshaping how users engage with games. Central to this evolution is the architectural choice—fully on-chain versus hybrid—which significantly influences both technical performance and user experience. Fully on-chain architectures maximize transparency and verifiability, enabling players to independently confirm game logic and asset ownership, but often incur higher transaction fees, increased latency, and gameplay friction. Hybrid architectures, by contrast, reduce cost and latency by offloading some operations off-chain, though this comes at the expense of full decentralization and self-verification.
+The rise of Web3 gaming has introduced transformative possibilities for decentralization, transparency, and player-controlled digital assets, fundamentally reshaping how users engage with games \cite{Min2019}. Central to this evolution is the architectural choice—fully on-chain versus hybrid—which significantly influences both technical performance and user experience. Fully on-chain architectures maximize transparency and verifiability, enabling players to independently confirm game logic and asset ownership, but often incur higher transaction fees, increased latency, and gameplay friction \cite{Min2019,MinCai2019}. Hybrid architectures, by contrast, reduce cost and latency by offloading some operations off-chain, though this comes at the expense of full decentralization and self-verification.
 
 A comprehensive understanding of Web3 gaming adoption requires integrating both technical and user-centered perspectives. On the technical side, scalability, transaction costs, and latency directly affect the practicality of fully on-chain and hybrid games on Layer 2 blockchain solutions. From the user perspective, players’ perceptions of these trade-offs—including the value they assign to transparency, trust, and convenience—shape engagement and acceptance. These perceptions can also vary depending on the game context, such as social, casual, or gambling-focused experiences.
 
@@ -65,13 +57,13 @@ By integrating technical evaluation with user-centered research, this study aims
 \section{Related Literature} \label{sec:theory}
 
 \subsection{Blockchain and dApps}
-A blockchain is a decentralized and tamper-resistant public ledger maintained across a peer-to-peer network. Each state change is recorded as a transaction, cryptographically signed using a user’s private key. Transactions are grouped into blocks, with each block referencing the previous one through a cryptographic hash, forming an immutable chain. Consensus mechanisms, such as proof-of-work, ensure agreement among network nodes on the blockchain’s current state. 
+A blockchain is a decentralized and tamper-resistant public ledger maintained across a peer-to-peer network \cite{Nakamoto2008}. Each state change is recorded as a transaction, cryptographically signed using a user’s private key. Transactions are grouped into blocks, with each block referencing the previous one through a cryptographic hash, forming an immutable chain. Consensus mechanisms, such as proof-of-work, ensure agreement among network nodes on the blockchain’s current state \cite{Xu2023}. 
 
-Ethereum, one of the leading blockchain platforms, enables developers to build decentralized applications (dApps) through smart contracts \cite{Palladino2019}. The smart contacts are self-executing programs deployed on-chain that automatically run when triggered by transactions. These contracts can store state, manage assets, and enforce rules, supporting a wide variety of decentralized services. Solidity is the primary programming language for writing smart contracts on Ethereum-compatible blockchains. In this Web 3 architecture, dApps serve as the backend logic in place of centralized servers, allowing users to interact directly with the blockchain network.
+Ethereum, one of the leading blockchain platforms, enables developers to build decentralized applications (dApps) through smart contracts \cite{Buterin2014,Palladino2019}. The smart contracts are self-executing programs deployed on-chain that automatically run when triggered by transactions. These contracts can store state, manage assets, and enforce rules, supporting a wide variety of decentralized services. Solidity is the primary programming language for writing smart contracts on Ethereum-compatible blockchains. In this Web 3 architecture, dApps serve as the backend logic in place of centralized servers, allowing users to interact directly with the blockchain network \cite{Ray2023}.
 
 \subsection{Scalability and layer 2 solutions}
 Scalability is the ability of the blockchain to process many transactions or support
-many users quickly and at low cost, and it is a well-known challenge in blockchain design [27].
+many users quickly and at low cost, and it is a well-known challenge in blockchain design \cite{Scalability8968381}. Layer-2 solutions, such as state channels and rollups, address these limits by moving transaction execution off the base layer while retaining its security guarantees \cite{Gudgeon2020,Thibault2022}.
 
 In blockchain based decentralization, many independent
 participants work together to keep the network running and validate transactions. This has direct consequences both on transaction speed and cost.
@@ -80,16 +72,16 @@ Increasing scalability by packing more transactions into each block can make it 
 
 
 \subsection{User Onboarding, Usability and Trust}
-User onboarding marks a user’s first interaction with a new technology or application \cite{ometoruwa2024}. User onboarding, in the context of Web3, remains a major barrier to the widespread adoption of, for example, Ethereum-based applications. New users are typically required to install a browser extension such as MetaMask, create and backup a wallet, and acquire ETH token before engaging with a dApp. This multi-step process introduces both technical and financial hurdles that often discourage new users. Palladino \cite{Palladino2019} suggests that while not all onboarding steps can be removed, some can be abstracted or deferred until users are more engaged. Consequently, improving onboarding by simplifying wallet creation, abstracting key management, and reducing transaction-related friction has become a central focus in modern dApp design.
+User onboarding marks a user’s first interaction with a new technology or application \cite{Duran2020}. User onboarding, in the context of Web3, remains a major barrier to the widespread adoption of, for example, Ethereum-based applications. New users are typically required to install a browser extension such as MetaMask, create and backup a wallet, and acquire ETH token before engaging with a dApp. This multi-step process introduces both technical and financial hurdles that often discourage new users. Palladino \cite{Palladino2019} suggests that while not all onboarding steps can be removed, some can be abstracted or deferred until users are more engaged. Consequently, improving onboarding by simplifying wallet creation, abstracting key management, and reducing transaction-related friction has become a central focus in modern dApp design. Recent work has examined how Web3 onboarding and trust can be supported through the Vipps app \cite{Kathayat2026}.
 
-Usability is defined as the degree to which a system, product, or service can be used by specified users to achieve defined goals effectively, efficiently, and with satisfaction in a given context \cite{Bangor2009}. It reflects how easily new users can become proficient and gain confidence in using the system. A highly usable product minimizes the learning effort required, enabling users to quickly understand the interface, complete tasks with ease, and build trust in the system’s reliability and functionality.
+Usability is defined as the degree to which a system, product, or service can be used by specified users to achieve defined goals effectively, efficiently, and with satisfaction in a given context \cite{Razak2011}. It reflects how easily new users can become proficient and gain confidence in using the system. A highly usable product minimizes the learning effort required, enabling users to quickly understand the interface, complete tasks with ease, and build trust in the system’s reliability and functionality.
 
-Trust relates to acceptance and is fundamental in both personal and digital interactions \cite{Gimre2024}. In the digital age, where activities occur online without physical presence or direct communication, trust becomes especially critical. It encompasses confidence in both third-party actions and the reliability of the system itself. In Web3, trust is particularly challenging, as interactions occur between pseudonymous peers, making assurance of integrity and reliability more difficult to establish.
+Trust relates to acceptance and is fundamental in both personal and digital interactions \cite{Boughton2024}. In the digital age, where activities occur online without physical presence or direct communication, trust becomes especially critical. It encompasses confidence in both third-party actions and the reliability of the system itself. In Web3, trust is particularly challenging, as interactions occur between pseudonymous peers, making assurance of integrity and reliability more difficult to establish \cite{Ottosen2026}.
 
 
 \section{Research Method} \label{sec:researchmethod}
 
-This research adopts the Design Science Research (DSR) framework \cite{Peffers2007}, which provides a structured, iterative process for the design and evaluation of artifacts. The framework consists of six stages:
+This research adopts the Design Science Research (DSR) framework \cite{Hevner2004,Peffers2007}, which provides a structured, iterative process for the design and evaluation of artifacts. The framework consists of six stages:
 
 \begin{enumerate}
     \item \textbf{Problem identification and motivation:} Recognizing a practical problem where a new or improved artifact could provide a solution.
@@ -104,7 +96,7 @@ In this study, the first two stages—problem identification and motivation, and
 
 During the \textit{design and development} stage, a prototype was created (see Section~\ref{sec:prototype}). The \textit{demonstration} stage involved conducting a user study to observe participant interactions with the prototype, followed by semi-structured interviews, as described in Section~\ref{sec:usertesting}. 
 
-In the \textit{evaluation} stage, both quantitative and qualitative analyses were performed. Technical performance, user preferences, and perceptions of openness and transparency were analyzed quantitatively. In parallel, a qualitative \textit{Thematic Analysis} \cite{Miles2014} was employed to explore user experiences, focusing on friction arising from confirmation prompts, perceived fairness, and trust.
+In the \textit{evaluation} stage, both quantitative and qualitative analyses were performed. Technical performance, user preferences, and perceptions of openness and transparency were analyzed quantitatively. In parallel, a qualitative \textit{Thematic Analysis} \cite{Braun2006,Miles2014} was employed to explore user experiences, focusing on friction arising from confirmation prompts, perceived fairness, and trust.
 
 
 
@@ -119,9 +111,9 @@ Blackjack was chosen for its simplicity, familiarity, and balance of skill and c
 \subsection{Technical Stack}
 Two prototypes were built for this study: a fully on-chain Blackjack dApp and a hybrid version where gameplay logic is executed off-chain. Both share the same React-based Web3 frontend but differ in how game actions are processed and validated.
 
-In, \textit{Fully On-Chain Blackjack}, the Solidity smart contract handles all gameplay logic, including player management, card dealing, state transitions, bet validation, randomness, and payouts. The React frontend, using Wagmi, Viem, Tailwind, and MetaMask, submits transactions and listens for contract events, polling when necessary to stay synced with the on-chain state.
+In \textit{Fully On-Chain Blackjack}, the Solidity smart contract handles all gameplay logic, including player management, card dealing, state transitions, bet validation, randomness, and payouts. The React frontend, using Wagmi, Viem, Tailwind, and MetaMask, submits transactions and listens for contract events, polling when necessary to stay synced with the on-chain state.
 %
-In \textit{Hybrid Blackjack}, the hybrid version uses the same frontend but adds a Node.js/Express backend. This backend runs the game logic, verifies wallet ownership via SIWE, and issues JWTs for authenticated API requests, with Redis used for fast in-memory storage. MetaMask still signs all on-chain actions such as deposits and bets. The Solidity contract verifies backend EIP-712 signatures, manages balances, enforces solvency, and settles outcomes, while the gameplay itself is executed off-chain to reduce gas costs and improve scalability.
+In \textit{Hybrid Blackjack}, the hybrid version uses the same frontend but adds a Node.js/Express backend. This backend runs the game logic, verifies wallet ownership via SIWE \cite{EIP4361}, and issues JWTs for authenticated API requests, with Redis used for fast in-memory storage. MetaMask still signs all on-chain actions such as deposits and bets. The Solidity contract verifies backend EIP-712 signatures \cite{EIP712}, manages balances, enforces solvency, and settles outcomes, while the gameplay itself is executed off-chain to reduce gas costs and improve scalability.
 
 
 \begin{table*}[h!]
@@ -208,7 +200,7 @@ The two smart contracts analyzed are:
     \item 0x91A1473ec1d0401ECA42Cb9a272741D3fEFc8762
 \end{itemize}
 
-\subsection{Uset testing}
+\subsection{User testing} \label{sec:usertesting}
 User testing was carried out to examine how players experience and assess two different Web3 Blackjack game architectures: a fully on-chain version and a hybrid (Web 2.5) version. The main objective was to understand user preferences, their perceptions of speed and transaction costs, and the importance they place on transparency and trust in each version.
 
 Participants were invited individually to the office to complete their testing sessions. To ensure procedural consistency, the author served as the sole moderator and interviewer. Each session began with a brief overview of the study’s objectives. Prior to gameplay, participants’ in-game balances were pre-funded and the betting amount was pre-configured, thereby eliminating the need for wallet setup or fund transfers and allowing the evaluation to focus solely on gameplay interaction.
@@ -464,13 +456,27 @@ These results suggest that user preferences are context-dependent. Hybrid archit
 Future research should explore approaches that reduce the trade-offs identified in this study, such as verifiable off-chain computation and zero-knowledge-based systems that combine efficiency with strong trust guarantees. Additionally, expanding user studies across different game genres and player demographics could provide deeper insights into adoption patterns. Overall, advancing Web3 gaming will depend on designing architectures that successfully integrate decentralization with practical usability.
 
 \begin{thebibliography}{00}
-\bibitem{b1} G. Eason, B. Noble, and I. N. Sneddon, ``On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,'' Phil. Trans. Roy. Soc. London, vol. A247, pp. 529--551, April 1955.
-\bibitem{b2} J. Clerk Maxwell, A Treatise on Electricity and Magnetism, 3rd ed., vol. 2. Oxford: Clarendon, 1892, pp.68--73.
-\bibitem{b3} I. S. Jacobs and C. P. Bean, ``Fine particles, thin films and exchange anisotropy,'' in Magnetism, vol. III, G. T. Rado and H. Suhl, Eds. New York: Academic, 1963, pp. 271--350.
-\bibitem{b4} K. Elissa, ``Title of paper if known,'' unpublished.
-\bibitem{b5} R. Nicole, ``Title of paper with only first word capitalized,'' J. Name Stand. Abbrev., in press.
-\bibitem{b6} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ``Electron spectroscopy studies on magneto-optical media and plastic substrate interface,'' IEEE Transl. J. Magn. Japan, vol. 2, pp. 740--741, August 1987 [Digests 9th Annual Conf. Magnetics Japan, p. 301, 1982].
-\bibitem{b7} M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989.
+\bibitem{Min2019} T. Min, H. Wang, Y. Guo, and W. Cai, ``Blockchain games: A survey,'' arXiv:1906.05558, 2019.
+\bibitem{MinCai2019} T. Min and W. Cai, ``A security case study for blockchain games,'' arXiv:1906.05538, 2019.
+\bibitem{Nakamoto2008} S. Nakamoto, ``Bitcoin: A peer-to-peer electronic cash system,'' 2008. [Online]. Available: https://bitcoin.org/bitcoin.pdf
+\bibitem{Xu2023} J. Xu, C. Wang, and X. Jia, ``A survey of blockchain consensus protocols,'' \textit{ACM Comput. Surv.}, vol. 55, no. 13s, 2023, doi: 10.1145/3579845.
+\bibitem{Buterin2014} V. Buterin, ``A next-generation smart contract and decentralized application platform,'' Ethereum White Paper, 2014. [Online]. Available: https://ethereum.org/en/whitepaper/
+\bibitem{Palladino2019} S. Palladino, \textit{Ethereum for Web Developers: Learn to Build Web Applications on Top of the Ethereum Blockchain}. Berkeley, CA: Apress, 2019.
+\bibitem{Ray2023} P. P. Ray, ``Web3: A comprehensive review on background, technologies, applications, zero-trust architectures, challenges and future directions,'' \textit{Internet of Things and Cyber-Physical Systems}, vol. 3, May 2023, doi: 10.1016/j.iotcps.2023.05.003.
+\bibitem{Scalability8968381} A. A. Mazlan, S. Mohd Daud, S. Mohd Sam, H. Abas, S. Z. Abdul Rasid, and M. F. Yusof, ``Scalability challenges in healthcare blockchain system---A systematic review,'' \textit{IEEE Access}, vol. 8, pp. 23663--23673, 2020, doi: 10.1109/ACCESS.2020.2969230.
+\bibitem{Gudgeon2020} L. Gudgeon, P. Moreno-Sanchez, S. Roos, P. McCorry, and A. Gervais, ``SoK: Layer-two blockchain protocols,'' in \textit{Financial Cryptography and Data Security}, Lecture Notes in Computer Science, vol. 12059. Cham: Springer, 2020, pp. 201--226, doi: 10.1007/978-3-030-51280-4\_12.
+\bibitem{Thibault2022} L. T. Thibault, T. Sarry, and A. S. Hafid, ``Blockchain scaling using rollups: A comprehensive survey,'' \textit{IEEE Access}, vol. 10, pp. 93039--93054, 2022, doi: 10.1109/ACCESS.2022.3200051.
+\bibitem{Duran2020} R. G. Dur\'an, D. Yarlequ\'e-Ruesta, M. Bell\'es-Mu\~noz, A. Jimenez-Viguer, and J. L. Mu\~noz-Tapia, ``An architecture for easy onboarding and key life-cycle management in blockchain applications,'' \textit{IEEE Access}, vol. 8, pp. 115005--115016, 2020, doi: 10.1109/ACCESS.2020.3003995.
+\bibitem{Kathayat2026} S. B. Kathayat, M. Svendsen, and B. H. Brataas, ``Accessing Web3 onboarding and trust via Vipps,'' in \textit{Proc. 8th Int. Workshop Emerging Trends in Software Engineering for Blockchain (WETSEB '26)}. New York, NY: ACM, 2026, pp. 17--24, doi: 10.1145/3786157.3788565.
+\bibitem{Razak2011} N. A. Razak and M. Ghazali, ``Usability in software development: Frameworks comparison between IKnowU and user behavior analysis framework (UBAF),'' in \textit{Proc. 2011 Malaysian Conf. Software Engineering}, Johor Bahru, Malaysia, 2011, pp. 330--335, doi: 10.1109/MySEC.2011.6140693.
+\bibitem{Boughton2024} L. Boughton, C. Miller, Y. Acar, D. Wermke, and C. K\"astner, ``Decomposing and measuring trust in open-source software supply chains,'' in \textit{Proc. 2024 IEEE/ACM 46th Int. Conf. Software Engineering: New Ideas and Emerging Results (ICSE-NIER)}, Lisbon, Portugal, 2024, pp. 57--61, doi: 10.1145/3639476.3639775.
+\bibitem{Ottosen2026} J. A. Ottosen and D. P. Sarjomaa, ``Trust without authority---Decentralised reputation, user discovery, and wallet authentication for self-sovereign identity systems,'' M.S. thesis, Norwegian Univ. Sci. Technol. (NTNU), Jun. 2026. [Online]. Available: https://api.nva.unit.no/publication/01a116ce6ef0-22cdb11e-c3bc-4ab4-9de6-5bb226c8990d
+\bibitem{Hevner2004} A. R. Hevner, S. T. March, J. Park, and S. Ram, ``Design science in information systems research,'' \textit{MIS Quarterly}, vol. 28, no. 1, pp. 75--105, 2004, doi: 10.2307/25148625.
+\bibitem{Peffers2007} K. Peffers, T. Tuunanen, M. A. Rothenberger, and S. Chatterjee, ``A design science research methodology for information systems research,'' \textit{J. Manage. Inf. Syst.}, vol. 24, no. 3, pp. 45--77, 2007.
+\bibitem{Braun2006} V. Braun and V. Clarke, ``Using thematic analysis in psychology,'' \textit{Qualitative Research in Psychology}, vol. 3, no. 2, pp. 77--101, 2006, doi: 10.1191/1478088706qp063oa.
+\bibitem{Miles2014} M. B. Miles, A. M. Huberman, and J. Saldana, \textit{Qualitative Data Analysis: A Methods Sourcebook}, 3rd ed. Thousand Oaks, CA: SAGE, 2014.
+\bibitem{EIP4361} W. Chang \textit{et al.}, ``ERC-4361: Sign-In with Ethereum,'' Ethereum Improvement Proposals, 2021. [Online]. Available: https://eips.ethereum.org/EIPS/eip-4361
+\bibitem{EIP712} R. Bloemen, L. Logvinov, and J. Evans, ``EIP-712: Typed structured data hashing and signing,'' Ethereum Improvement Proposals, 2017. [Online]. Available: https://eips.ethereum.org/EIPS/eip-712
 \end{thebibliography}
 
 \end{document}
