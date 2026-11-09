@@ -24,7 +24,7 @@
 \maketitle
 
 \begin{abstract}
-This study investigates the trade-offs between fully on-chain and hybrid architectures for Web3 games deployed on Layer-2 blockchain networks. Using a Blackjack-based prototype, two implementations were developed: a fully on-chain version where all gameplay logic is executed via smart contracts, and a hybrid version where gameplay occurs off-chain while critical transactions are settled on-chain. The research applies a Design Science Research methodology, combining technical performance evaluation with user-centered analysis through load testing and user studies. Results show that the fully on-chain architecture provides higher transparency and verifiability but suffers from increased transaction costs and latency, negatively impacting gameplay flow. In contrast, the hybrid approach significantly improves responsiveness and reduces user costs by minimizing on-chain interactions, though it introduces partial trust in backend systems. In a user study with 23 participants, 15 preferred the hybrid version for its smoother experience, yet transparency remained important: when asked directly, 11 favored the open version and 9 the hybrid. The study highlights that the optimal architecture depends on context, with hybrid solutions offering better usability for casual gaming and fully on-chain systems being more suitable for trust-sensitive scenarios.
+This study investigates the trade-offs between fully on-chain and hybrid architectures for Web3 games deployed on Layer-2 blockchain networks. Using a Blackjack-based prototype, two implementations were developed: a fully on-chain version where all gameplay logic is executed via smart contracts, and a hybrid version where gameplay occurs off-chain while critical transactions are settled on-chain. The research applies a Design Science Research methodology, combining technical performance evaluation with user-centered analysis through load testing and user studies. Results show that the fully on-chain architecture provides higher transparency and verifiability but suffers from increased transaction costs and latency, negatively impacting gameplay flow. In contrast, the hybrid approach markedly improves responsiveness and reduces user costs by minimizing on-chain interactions, though it introduces partial trust in backend systems. In a user study with 23 participants, 15 preferred the hybrid version for its smoother experience, yet transparency remained important: when asked directly, 11 favored the open version and 9 the hybrid. The study highlights that the optimal architecture depends on context, with hybrid solutions offering better usability for casual gaming and fully on-chain systems being more suitable for trust-sensitive scenarios.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -291,6 +291,8 @@ Finalize Game        & Hybrid   & 0.0028 & App oracle  & 1674 \\
 \end{tabular}
 \end{table}
 
+To compare the cost of a whole round, we sum the actions of Table~\ref{tab:comparison_blackjack} for a round in which the player joins a table, hits once, stands and prepares the next round. On-chain this costs the player about 0.046 USD. In the hybrid version the same round consists of placing a bet (0.0016 USD, paid by the player) and finalization (0.0028 USD, paid by the application oracle), i.e., 0.0044 USD in total. The player thus pays roughly 29 times less per round, and the combined cost is about 10 times lower. The costs were measured on the Arbitrum One mainnet at the time of testing, so they vary with gas price and ETH/USD rate, and a round with more hits widens the gap because each on-chain hit adds a transaction.
+
 \begin{figure}[t]
 \centering
 \begin{tikzpicture}
@@ -388,7 +390,7 @@ Enjoyed having to confirm every choice & 3 \\
 \end{tabular}
 \end{table}
 
-Most participants preferred the hybrid version, which required fewer confirmation actions. As shown in Table~\ref{tab:user_preferences} and Fig.~\ref{fig:responses}, six users preferred it “much more,” nine “a bit more,” while only three favored the fully on-chain version slightly, and none preferred it strongly. Five users noticed no major difference.
+Most participants preferred the hybrid version, which required fewer confirmation actions. As shown in Table~\ref{tab:user_preferences} and Fig.~\ref{fig:responses}, six users preferred it “much more,” nine “a bit more,” while only three favored the fully on-chain version slightly, and none preferred it strongly. Five users noticed no major difference. Excluding these five ties, 15 of the remaining 18 participants favored the hybrid version, which is unlikely under an even split (two-sided exact sign test, $p \approx 0.008$). With $N=23$ the remaining comparisons are reported descriptively only.
 %
 Perceived speed followed a similar pattern: eight users found the hybrid version “much faster,” six “a bit faster,” and only one considered the on-chain version faster—a participant who had encountered a buggy build. The remaining eight reported no difference in speed.
 %
@@ -399,10 +401,10 @@ This section examines how users perceive the value of openness and transparency 
 
 \begin{table}[h!]
 \centering
-\caption{Importance of being able to verify fairness (e.g., shuffling) compared to trusting the company.}
+\caption{Importance of verifying fairness (e.g., shuffling) rather than trusting the company, and of openness, as number of participants ($n=23$) per answer.}
 \begin{tabular}{l c c}
 \hline
-\textbf{Importance level} & \textbf{Verify fairness} & \textbf{Openness } \\
+\textbf{Importance level} & \textbf{Verifying fairness} & \textbf{Openness in general} \\
 \hline
 Very important                    & 7 & 1 \\
 Quite important                   & 7 & 1\\
