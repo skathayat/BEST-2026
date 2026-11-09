@@ -14,6 +14,9 @@
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 % Highlight for items needing attention. Before submitting, change the next line to \newcommand{\attn}[1]{#1}
 \newcommand{\attn}[1]{\colorbox{yellow}{#1}}
+\setlength{\textfloatsep}{8pt plus 2pt minus 2pt}
+\setlength{\floatsep}{6pt plus 2pt minus 2pt}
+\setlength{\intextsep}{8pt plus 2pt minus 2pt}
 \begin{document}
 
 \title{Comparing On-Chain vs Hybrid Architectures for Web3 Games on Layer-2}
@@ -488,7 +491,6 @@ Many users also found the repeated confirmation prompts in the on-chain version 
 \textit{It was fine at first, but after you’ve played it once, it’s like, okay, I get it, I don’t need to accept every time. After a while, you lose the flow. Especially after a couple of games...} (User 11)\\
 \textit{Tiring to confirm every time. I’m here for the game...} (User 17)\\
 \textit{Didn’t need to click the confirmation button every time I wanted to bet...} (User 20)\\
-\textit{It was fine at first, but after you’ve played it once, it’s like, okay, I get it, I don’t need to accept every time. After a while, you lose the flow. Especially after a couple of games...} (User 21)\\
 \textit{A popup appears, which gets in the way. I had already made it clear a long time ago that I wanted to do this...} (User 23)
 \end{quote}
 
@@ -565,11 +567,11 @@ The results suggest the following guidelines for Web3 game designers.
 Several limitations should be considered when interpreting the results. The user study had a small sample, with 23 responses in total, so the preference distributions are indicative and not statistically conclusive. The author served as the sole moderator and interviewer, which supports consistency but may have influenced participants' answers. Participants played with pre-funded balances and a pre-configured bet, so the study does not capture wallet setup or funding friction, which are known onboarding barriers. Responses were self-reported through a questionnaire and a short interview. The load test used three wallets playing at a single table, so it measures per-action cost and latency under light multiplayer load and does not show how either architecture scales to many concurrent players. Only one game, Blackjack, was studied, so the findings may not transfer to other game genres or to higher-stakes settings. Finally, the cost comparison depends on who pays for settlement: in the hybrid version the operator's oracle pays for finalizing the game, which lowers the player's cost but not the total cost of the system.
 
 \section{Concluding Remarks}
-This study highlights a fundamental trade-off in Web3 game design between decentralization and usability. The technical evaluation shows that fully on-chain architectures provide strong guarantees of transparency, verifiability, and trustlessness, but introduce significant friction through higher transaction costs and confirmation delays. These constraints negatively impact gameplay fluidity, making fully on-chain solutions less suitable for fast-paced or interaction-heavy gaming scenarios. In contrast, the hybrid architecture reduces on-chain load and latency and lowers user costs by offloading gameplay logic off-chain, resulting in a smoother and more responsive experience.
+This study highlights a fundamental trade-off in Web3 game design between decentralization and usability. The technical evaluation shows that fully on-chain architectures provide strong guarantees of transparency, verifiability, and trustlessness, but introduce significant friction through higher transaction costs and confirmation delays. This makes fully on-chain solutions less suitable for fast-paced games. In contrast, the hybrid architecture reduces on-chain load and latency and lowers user costs by offloading gameplay logic off-chain, resulting in a smoother and more responsive experience.
 
-The user study findings reinforce this trade-off. Most participants preferred the hybrid version due to its seamless gameplay and reduced need for repeated confirmations, which were widely perceived as disruptive in the fully on-chain version. At the same time, transparency and fairness remained important considerations, particularly in contexts involving real money or higher perceived risk. While users expressed a desire for verifiability, most did not expect to actively audit the system themselves; rather, the availability of transparency contributed to a general sense of trust.
+The user study findings reinforce this trade-off. Most participants preferred the hybrid version due to its seamless gameplay and reduced need for repeated confirmations, which were widely perceived as disruptive. At the same time, transparency and fairness remained important, particularly when real money is involved, although most participants did not expect to audit the system themselves; the availability of transparency was enough to build trust.
 
-These results suggest that user preferences are context-dependent. Hybrid architectures are better suited for casual or entertainment-focused games where speed and engagement are prioritized, whereas fully on-chain solutions may be more appropriate in high-stakes environments where trust and fairness are critical. Consequently, there is no universally optimal architecture; instead, developers must carefully balance technical performance with user expectations and the specific requirements of the application domain.
+These results suggest that user preferences are context-dependent. Hybrid architectures are better suited for casual or entertainment-focused games where speed and engagement are prioritized, whereas fully on-chain solutions may be more appropriate in high-stakes environments where trust and fairness are critical. There is thus no universally optimal architecture, and developers must balance technical performance with user expectations and the application domain.
 
 Future research should explore approaches that reduce the trade-offs identified in this study, such as verifiable off-chain computation and zero-knowledge-based systems that combine efficiency with strong trust guarantees. Additionally, expanding user studies across different game genres and player demographics could provide deeper insights into adoption patterns. Overall, advancing Web3 gaming will depend on designing architectures that successfully integrate decentralization with practical usability.
 
