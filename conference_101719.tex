@@ -222,11 +222,11 @@ Same stack plus backend (Node.js, Express), SIWE and JWT for authentication, and
 \end{tabular}
 \end{table*}
 
-Detailed comparison is presented in Table~\ref{table:hybrid_vs_onchian}, and it highlights the core trade-off between the two architectures. The fully on-chain model maximizes transparency and decentralization but suffers from high gas costs and latency, making it less suitable for large-scale or fast-paced gameplay. The hybrid model improves scalability by moving gameplay off-chain, though it introduces trust assumptions in the backend server. Evaluating both approaches across different Layer-2 networks shows how these architectural choices affect performance metrics such as gas usage and confirmation latency, and what they imply for designing scalable Web3 games.
+Detailed comparison is presented in Table~\ref{table:hybrid_vs_onchian}, and it highlights the core trade-off between the two architectures. The fully on-chain model maximizes transparency and decentralization but suffers from high gas costs and latency, making it less suitable for large-scale or fast-paced gameplay. The hybrid model improves scalability by moving gameplay off-chain, though it introduces trust assumptions in the backend server. Evaluating both approaches on a Layer-2 network (Arbitrum One) shows how these architectural choices affect performance metrics such as gas usage and confirmation latency, and what they imply for designing scalable Web3 games.
 
 
 \subsection{Load tests and data collection}
-To evaluate the real-world performance and scalability of both the fully on-chain and hybrid Blackjack dApps, the open-source k6 testing framework was used. This setup simulated multiple users performing game actions concurrently, enabling accurate measurement of transaction times and costs for both architectures when deployed on the Arbitrum One mainnet.
+To evaluate the real-world performance and scalability of both the fully on-chain and hybrid Blackjack dApps, the open-source k6 testing framework was used. Both architectures were deployed on the Arbitrum One mainnet, a Layer-2 network, so the measured costs and confirmation times reflect real network conditions. This setup simulated multiple users performing game actions concurrently, enabling accurate measurement of transaction times and costs for both architectures when deployed on the Arbitrum One mainnet.
 
 During each test session, the following metrics were recorded: 
 
