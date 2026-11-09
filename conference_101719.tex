@@ -237,10 +237,12 @@ During each test session, the following metrics were recorded:
 
 After completing the K6 sessions, the smart contracts of both versions were examined. For each function, all related transactions were reviewed, and the transaction costs were recorded. This was done by inspecting the contracts on \texttt{Arbiscan.io}, a blockchain explorer. Once all transactions for a given function were analyzed, the total costs were summed and divided by the number of transactions to calculate the average cost.
 %
-The transaction cost data for the fully on-chain version and for the hybrid version were gathered from the Arbiscan transaction records of the respective deployed contracts. The contract addresses are omitted for double-blind review and will be provided in the camera-ready version.
-% Camera-ready only (do NOT include in the blind submission):
-% Fully on-chain contract: https://arbiscan.io/address/0xc9C0526c24196F9e6ff3B097BA4e07e279BB93dA
-% Hybrid contract: https://arbiscan.io/address/0x91A1473ec1d0401ECA42Cb9a272741D3fEFc8762
+The transaction cost data were gathered from the Arbiscan transaction records of the two deployed contracts:
+
+\begin{itemize}
+    \item On-chain: \texttt{\scriptsize 0xc9C0526c24196F9e6ff3B097BA4e07e279BB93dA}
+    \item Hybrid: \texttt{\scriptsize 0x91A1473ec1d0401ECA42Cb9a272741D3fEFc8762}
+\end{itemize}
 
 \subsection{User testing} \label{sec:usertesting}
 User testing was carried out to examine how players experience and assess two different Web3 Blackjack game architectures: a fully on-chain version and a hybrid (Web 2.5) version. The main objective was to understand user preferences, their perceptions of speed and transaction costs, and the importance they place on transparency and trust in each version.
@@ -272,6 +274,7 @@ interactions is minimized.
 \centering
 \caption{On-chain vs. hybrid Blackjack dApp performance}
 \label{tab:comparison_blackjack}
+\setlength{\tabcolsep}{3.5pt}
 \begin{tabular}{lcccc}
 \hline
 \textbf{Action} & \textbf{Version} & \textbf{Cost (USD)} & \textbf{Payer} & \textbf{Conf. time (ms)} \\
