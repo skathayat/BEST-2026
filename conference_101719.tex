@@ -58,7 +58,7 @@ Guided by these dimensions, the research explores the following core questions:
     \item What factors influence users’ willingness to accept higher costs or friction for enhanced transparency and trust, and how do these factors vary across game contexts?
 \end{enumerate}
 
-The paper makes four contributions. First, it presents two implementations of the same Blackjack game, a fully on-chain one and a hybrid one. Second, it compares them technically in terms of transaction cost and confirmation time. Third, it reports a user study with 23 participants, analyzed quantitatively and through thematic analysis. Fourth, it derives design guidelines for choosing between the two architectures. The rest of the paper is organized as follows. Section~II reviews related literature, Section~III describes the research method, Section~IV presents the prototype, Sections~V and~VI report the quantitative and qualitative results, Section~VII discusses the findings, Section~VIII covers threats to validity, and Section~IX concludes.
+The paper makes four contributions. First, it presents two implementations of the same Blackjack game, a fully on-chain one and a hybrid one. Second, it compares them technically in terms of transaction cost and confirmation time. Third, it reports a user study with 23 participants, analyzed quantitatively and through thematic analysis. Fourth, it derives design guidelines for choosing between the two architectures. The rest of the paper is organized as follows. Section~\ref{sec:theory} reviews related literature, Section~\ref{sec:researchmethod} describes the research method, Section~\ref{sec:prototype} presents the prototype, Sections~\ref{sec:quant} and~\ref{sec:qual} report the quantitative and qualitative results, Section~\ref{sec:discussion} discusses the findings and their limitations, and Section~\ref{sec:conclusion} concludes.
 
 By integrating technical evaluation with user-centered research, this study aims to provide a holistic understanding of the practical, experiential, and behavioral dimensions that shape the feasibility and adoption of modern Web3 gaming architectures.
 
@@ -256,7 +256,7 @@ Following the gameplay phase, participants completed a printed questionnaire and
 
 
 
-\section{Quantitative Results}
+\section{Quantitative Results}\label{sec:quant}
 
 \subsection{On-Chain vs. Hybrid Performance}
 
@@ -462,7 +462,7 @@ Definitely the hybrid version & 4 \\
 \end{table}
 
 
-\section{Qualitative Results}
+\section{Qualitative Results}\label{sec:qual}
 
 \subsection{Friction from Confirmation Prompts}
 The most noticeable trend in users’ initial impressions was the significant effect that confirmation prompts had on gameplay flow and enjoyment. Many users preferred the hybrid version, appreciating its faster, smoother, and more immersive experience. They noted that not having to confirm every action made the game feel seamless, helped maintain focus, and enabled them to complete more rounds in less time.
@@ -552,7 +552,7 @@ RQ3 & Open versus hybrid preference (23 responses) & Split: 11 favored the open 
 \end{tabular}
 \end{table}
 
-\section{Discussion}
+\section{Discussion}\label{sec:discussion}
 Table~\ref{tab:rq_summary} summarizes how the evidence answers the three research questions.
 
 The results suggest the following guidelines for Web3 game designers.
@@ -566,7 +566,7 @@ The results suggest the following guidelines for Web3 game designers.
 \subsection{Threats to Validity}
 Several limitations should be considered when interpreting the results. The user study had a small sample, with 23 responses in total, so the preference distributions are indicative and not statistically conclusive. The author served as the sole moderator and interviewer, which supports consistency but may have influenced participants' answers. Participants played with pre-funded balances and a pre-configured bet, so the study does not capture wallet setup or funding friction, which are known onboarding barriers. Responses were self-reported through a questionnaire and a short interview. The load test used three wallets playing at a single table, so it measures per-action cost and latency under light multiplayer load and does not show how either architecture scales to many concurrent players. Only one game, Blackjack, was studied, so the findings may not transfer to other game genres or to higher-stakes settings. Finally, the cost comparison depends on who pays for settlement: in the hybrid version the operator's oracle pays for finalizing the game, which lowers the player's cost but not the total cost of the system.
 
-\section{Concluding Remarks}
+\section{Concluding Remarks}\label{sec:conclusion}
 This study highlights a fundamental trade-off in Web3 game design between decentralization and usability. The technical evaluation shows that fully on-chain architectures provide strong guarantees of transparency, verifiability, and trustlessness, but introduce significant friction through higher transaction costs and confirmation delays. This makes fully on-chain solutions less suitable for fast-paced games. In contrast, the hybrid architecture reduces on-chain load and latency and lowers user costs by offloading gameplay logic off-chain, resulting in a smoother and more responsive experience.
 
 The user study findings reinforce this trade-off. Most participants preferred the hybrid version due to its seamless gameplay and reduced need for repeated confirmations, which were widely perceived as disruptive. At the same time, transparency and fairness remained important, particularly when real money is involved, although most participants did not expect to audit the system themselves; the availability of transparency was enough to build trust.
