@@ -271,7 +271,7 @@ interactions is minimized.
 \label{tab:comparison_blackjack}
 \begin{tabular}{lcccc}
 \hline
-\textbf{Action} & \textbf{Version} & \textbf{Cost} & \textbf{Payer} & \textbf{Conf. Time} \\
+\textbf{Action} & \textbf{Version} & \textbf{Cost (USD)} & \textbf{Payer} & \textbf{Conf. time (ms)} \\
 \hline
 Join Table           & On-chain & 0.0195 & User        & 1587 \\
 Hit                  & On-chain & 0.0066 & User        & 1695 \\
@@ -284,6 +284,25 @@ Finalize Game        & Hybrid   & 0.0028 & App oracle  & 1674 \\
 \hline
 \end{tabular}
 \end{table}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[xbar,width=0.62\columnwidth,height=6.4cm,bar width=7pt,point meta=rawx,xmode=log,xmin=1,xmax=6000,
+  xlabel={Confirmation time (ms, log scale)},xlabel style={font=\footnotesize},
+  y dir=reverse,ymin=0.4,ymax=8.6,ytick={1,2,3,4,5,6,7,8},
+  yticklabels={Join Table,Hit,Stand,Prep. New Round,Place Bet,Hit,Stand,Finalize Game},
+  yticklabel style={font=\scriptsize},xticklabel style={font=\scriptsize},
+  nodes near coords,nodes near coords style={font=\scriptsize,/pgf/number format/fixed,/pgf/number format/precision=1,/pgf/number format/zerofill=false,/pgf/number format/assume math mode=true},
+  legend style={at={(0.5,-0.3)},anchor=north,legend columns=2,font=\scriptsize}]
+\addplot[fill=gray!55,draw=white,bar shift=0pt] coordinates {(1587,1) (1695,2) (1135,3) (1533,4)};
+\addplot[fill=blue!55,draw=white,bar shift=0pt] coordinates {(1439,5) (2.7,6) (2.4,7) (1674,8)};
+\legend{Fully on-chain,Hybrid}
+\end{axis}
+\end{tikzpicture}
+\caption{Confirmation time per game action for the fully on-chain and hybrid versions. Hybrid gameplay actions (hit, stand) are processed off-chain and complete in a few milliseconds, while on-chain actions take over one second.}
+\label{fig:conf_time}
+\end{figure}
 
 The comparison reveals that although both architectures maintain low per-action costs, the fully on-chain version accumulates higher fees and longer confirmation times, reducing gameplay fluidity. The hybrid model mitigates these issues by processing most actions off-chain and delegating finalization costs to an oracle account, resulting in improved scalability and responsiveness. However, this efficiency comes at the expense of full decentralization, requiring partial trust in backend operations. Overall, the results highlight a key trade-off between transparency, performance, and user experience in Web3 gaming architectures.
 
@@ -311,7 +330,7 @@ Preferred the second version much more    & 6 \\
 \begin{figure}[t]
 \centering
 \begin{tikzpicture}
-\begin{axis}[xbar stacked,width=\columnwidth,height=3.6cm,bar width=11pt,
+\begin{axis}[xbar stacked,width=0.72\columnwidth,height=3.6cm,bar width=11pt,
   xmin=0,xmax=23,xlabel={Number of responses (of 23)},xlabel style={font=\footnotesize},
   ytick=data,symbolic y coords={Speed,Preference},yticklabel style={font=\footnotesize},xticklabel style={font=\footnotesize},
   enlarge y limits=0.45,
