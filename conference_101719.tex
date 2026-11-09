@@ -7,6 +7,8 @@
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 % Highlight for items needing attention. Before submitting, change the next line to \newcommand{\attn}[1]{#1}
@@ -71,6 +73,9 @@ participants work together to keep the network running and validate transactions
 Increasing scalability by packing more transactions into each block can make it harder for all participants to stay synchronized, potentially weakening decentralization. Likewise, altering the consensus mechanism to boost network speed may create new security vulnerabilities. These trade-offs are particularly critical in Web3 gaming, where both rapid performance and strong guarantees of trust and fairness are essential.
 
 
+\subsection{Blockchain Games and Off-Chain Designs}
+Blockchain games have been surveyed as a growing class of decentralized applications, and their security properties have been studied separately \cite{Min2019,MinCai2019}. A central design question in such games is which parts of the game logic and state to keep on-chain. Layer-two protocols, including state channels and rollups, move execution away from the base chain while still anchoring results to it \cite{Gudgeon2020,Thibault2022}. This paper does not propose a new protocol. Instead, it compares two concrete designs of the same game, a fully on-chain one and a hybrid one that settles results on-chain, and evaluates them both technically and with users.
+
 \subsection{User Onboarding, Usability and Trust}
 User onboarding marks a user’s first interaction with a new technology or application \cite{Duran2020}. User onboarding, in the context of Web3, remains a major barrier to the widespread adoption of, for example, Ethereum-based applications. New users are typically required to install a browser extension such as MetaMask, create and backup a wallet, and acquire ETH token before engaging with a dApp. This multi-step process introduces both technical and financial hurdles that often discourage new users. Palladino \cite{Palladino2019} suggests that while not all onboarding steps can be removed, some can be abstracted or deferred until users are more engaged. Consequently, improving onboarding by simplifying wallet creation, abstracting key management, and reducing transaction-related friction has become a central focus in modern dApp design. Recent work has examined how Web3 onboarding and trust can be supported through the Vipps app \cite{Kathayat2026}.
 
@@ -113,8 +118,33 @@ Two prototypes were built for this study: a fully on-chain Blackjack dApp and a 
 
 In \textit{Fully On-Chain Blackjack}, the Solidity smart contract handles all gameplay logic, including player management, card dealing, state transitions, bet validation, randomness, and payouts. The React frontend, using Wagmi, Viem, Tailwind, and MetaMask, submits transactions and listens for contract events, polling when necessary to stay synced with the on-chain state.
 %
-In \textit{Hybrid Blackjack}, the hybrid version uses the same frontend but adds a Node.js/Express backend. This backend runs the game logic, verifies wallet ownership via SIWE \cite{EIP4361}, and issues JWTs for authenticated API requests, with Redis used for fast in-memory storage. MetaMask still signs all on-chain actions such as deposits and bets. The Solidity contract verifies backend EIP-712 signatures \cite{EIP712}, manages balances, enforces solvency, and settles outcomes, while the gameplay itself is executed off-chain to reduce gas costs and improve scalability.
+In \textit{Hybrid Blackjack} (Fig.~\ref{fig:architectures}), the hybrid version uses the same frontend but adds a Node.js/Express backend. This backend runs the game logic, verifies wallet ownership via SIWE \cite{EIP4361}, and issues JWTs for authenticated API requests, with Redis used for fast in-memory storage. MetaMask still signs all on-chain actions such as deposits and bets. The Solidity contract verifies backend EIP-712 signatures \cite{EIP712}, manages balances, enforces solvency, and settles outcomes, while the gameplay itself is executed off-chain to reduce gas costs and improve scalability.
 
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[font=\footnotesize,
+  box/.style={draw,rounded corners=2pt,minimum height=6mm,minimum width=17mm,align=center,inner sep=2pt},
+  arr/.style={-{Stealth[length=1.8mm]},thick},
+  lab/.style={font=\scriptsize,midway,above,align=center}]
+% on-chain
+\node[font=\footnotesize\bfseries,anchor=west] at (0,2.35) {(a) Fully on-chain};
+\node[box] (f1) at (0.9,1.45) {React\\frontend};
+\node[box,fill=gray!15] (c1) at (5.3,1.45) {Smart contract\\(all game logic)};
+\draw[arr] (f1) -- node[lab]{every action\\is a transaction} (c1);
+\draw[arr,dashed] (c1.south west)++(0.4,0) -- ++(-3.4,-0.0) node[midway,below,font=\scriptsize]{events} ;
+% hybrid
+\node[font=\footnotesize\bfseries,anchor=west] at (0,0.35) {(b) Hybrid};
+\node[box] (f2) at (0.9,-0.75) {React\\frontend};
+\node[box] (b2) at (3.7,-0.75) {Backend\\(game logic)};
+\node[box,fill=gray!15] (c2) at (6.4,-0.75) {Smart\\contract};
+\draw[arr] (f2) -- node[lab]{gameplay\\(off-chain)} (b2);
+\draw[arr] (b2) -- node[lab]{signed\\result} (c2);
+\draw[arr,rounded corners=3pt] (f2.south) -- ++(0,-0.55) -| node[pos=0.25,below,font=\scriptsize]{deposit, bet (on-chain)} (c2.south);
+\end{tikzpicture}
+\caption{Architectures compared: (a) every action is a transaction handled by the contract; (b) gameplay runs on a backend that submits signed results to the contract for settlement.}
+\label{fig:architectures}
+\end{figure}
 
 \begin{table*}[h!]
 \centering
@@ -303,7 +333,7 @@ Enjoyed having to confirm every choice & 3 \\
 \end{tabular}
 \end{table}
 
-Most participants preferred the hybrid version, which required fewer confirmation actions. As shown in Figure xx, six users preferred it “much more,” nine “a bit more,” while only three favored the fully on-chain version slightly, and none preferred it strongly. Five users noticed no major difference.
+Most participants preferred the hybrid version, which required fewer confirmation actions. As shown in Table~\ref{tab:user_preferences}, six users preferred it “much more,” nine “a bit more,” while only three favored the fully on-chain version slightly, and none preferred it strongly. Five users noticed no major difference.
 %
 Perceived speed followed a similar pattern: eight users found the hybrid version “much faster,” six “a bit faster,” and only one considered the on-chain version faster—a participant who had encountered a buggy build. The remaining eight reported no difference in speed.
 %
@@ -445,6 +475,9 @@ For many users, the primary reason for favoring the hybrid version was its faste
 \end{quote}
 
 These responses indicate that for many players, a smooth, uninterrupted experience mattered more than transparency or cost. The hybrid app’s convenience and speed made it the clear favorite among those playing for fun or looking for a fast-paced, engaging experience.
+
+\section{Threats to Validity}
+Several limitations should be considered when interpreting the results. The user study had a small sample, with 23 responses in total, so the preference distributions are indicative and not statistically conclusive. The author served as the sole moderator and interviewer, which supports consistency but may have influenced participants' answers. Participants played with pre-funded balances and a pre-configured bet, so the study does not capture wallet setup or funding friction, which are known onboarding barriers. Responses were self-reported through a questionnaire and a short interview. Only one game, Blackjack, was studied, so the findings may not transfer to other game genres or to higher-stakes settings. Finally, the cost comparison depends on who pays for settlement: in the hybrid version the operator's oracle pays for finalizing the game, which lowers the player's cost but not the total cost of the system.
 
 \section{Concluding remarks}
 This study highlights a fundamental trade-off in Web3 game design between decentralization and usability. The technical evaluation shows that fully on-chain architectures provide strong guarantees of transparency, verifiability, and trustlessness, but introduce significant friction through higher transaction costs and confirmation delays. These constraints negatively impact gameplay fluidity, making fully on-chain solutions less suitable for fast-paced or interaction-heavy gaming scenarios. In contrast, the hybrid architecture improves scalability, reduces latency, and lowers user costs by offloading gameplay logic off-chain, resulting in a smoother and more responsive experience.
