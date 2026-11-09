@@ -234,12 +234,7 @@ During each test session, the following metrics were recorded:
 
 After completing the K6 sessions, the smart contracts of both versions were examined. For each function, all related transactions were reviewed, and the transaction costs were recorded. This was done by inspecting the contracts on \texttt{Arbiscan.io}, a blockchain explorer. Once all transactions for a given function were analyzed, the total costs were summed and divided by the number of transactions to calculate the average cost.
 %
-The two smart contracts analyzed are:
-
-\begin{itemize}
-    \item 0xc9C0526c24196F9e6ff3B097BA4e07e279BB93dA
-    \item 0x91A1473ec1d0401ECA42Cb9a272741D3fEFc8762
-\end{itemize}
+The addresses of the two analyzed smart contracts are omitted for double-blind review and will be provided in the camera-ready version.
 
 \subsection{User testing} \label{sec:usertesting}
 User testing was carried out to examine how players experience and assess two different Web3 Blackjack game architectures: a fully on-chain version and a hybrid (Web 2.5) version. The main objective was to understand user preferences, their perceptions of speed and transaction costs, and the importance they place on transparency and trust in each version.
@@ -486,6 +481,32 @@ For many users, the primary reason for favoring the hybrid version was its faste
 \end{quote}
 
 These responses indicate that for many players, a smooth, uninterrupted experience mattered more than transparency or cost. The hybrid app’s convenience and speed made it the clear favorite among those playing for fun or looking for a fast-paced, engaging experience.
+
+\section{Discussion and Design Guidelines}
+Table~\ref{tab:rq_summary} summarizes how the evidence answers the three research questions.
+
+\begin{table}[htbp]
+\centering
+\caption{Summary of findings per research question}
+\label{tab:rq_summary}
+\begin{tabular}{p{0.8cm}p{3.5cm}p{3.5cm}}
+\hline
+\textbf{RQ} & \textbf{Evidence} & \textbf{Finding} \\
+\hline
+RQ1 & Cost and confirmation time per action (Table~\ref{tab:comparison_blackjack}) & On-chain: every action is a paid transaction. Hybrid: only bets and finalization are \\
+RQ2 & Preference, speed and confirmation responses (Tables~\ref{tab:user_preferences}--\ref{tab:confirmation_experience}) & 15 of 23 preferred the hybrid version; confirmation prompts were mostly seen as tiresome \\
+RQ3 & Open versus hybrid preference (23 responses) & Split: 11 favored the open version, 9 the hybrid, 3 had no preference \\
+\hline
+\end{tabular}
+\end{table}
+
+The results suggest the following guidelines for Web3 game designers.
+\begin{enumerate}
+    \item Keep only value-bearing actions on-chain, such as deposits, bets and settlement, and run frequent gameplay actions off-chain to preserve responsiveness and reduce player cost.
+    \item Minimize confirmation prompts, since most participants found repeated confirmations tiresome.
+    \item Prefer a fully on-chain design where verifiability and fairness are critical, such as high-stakes games, because participants who valued openness kept that preference despite the added friction.
+    \item State clearly which parts of a hybrid design require trusting the backend, because the hybrid version relies on the operator to run the game logic and sign results honestly.
+\end{enumerate}
 
 \section{Threats to Validity}
 Several limitations should be considered when interpreting the results. The user study had a small sample, with 23 responses in total, so the preference distributions are indicative and not statistically conclusive. The author served as the sole moderator and interviewer, which supports consistency but may have influenced participants' answers. Participants played with pre-funded balances and a pre-configured bet, so the study does not capture wallet setup or funding friction, which are known onboarding barriers. Responses were self-reported through a questionnaire and a short interview. Only one game, Blackjack, was studied, so the findings may not transfer to other game genres or to higher-stakes settings. Finally, the cost comparison depends on who pays for settlement: in the hybrid version the operator's oracle pays for finalizing the game, which lowers the player's cost but not the total cost of the system.
