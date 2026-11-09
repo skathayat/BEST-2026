@@ -121,7 +121,7 @@ Two prototypes were built for this study: a fully on-chain Blackjack dApp and a 
 
 In \textit{Fully On-Chain Blackjack}, the Solidity smart contract handles all gameplay logic, including player management, card dealing, state transitions, bet validation, randomness, and payouts. The React frontend, using Wagmi, Viem, Tailwind, and MetaMask, submits transactions and listens for contract events, polling when necessary to stay synced with the on-chain state.
 %
-In \textit{Hybrid Blackjack} (Fig.~\ref{fig:architectures}), the hybrid version uses the same frontend but adds a Node.js/Express backend. This backend runs the game logic, verifies wallet ownership via SIWE \cite{EIP4361}, and issues JWTs for authenticated API requests, with Redis used for fast in-memory storage. MetaMask still signs all on-chain actions such as deposits and bets. The Solidity contract verifies backend EIP-712 signatures \cite{EIP712}, manages balances, enforces solvency, and settles outcomes, while the gameplay itself is executed off-chain to reduce gas costs and improve scalability.
+In \textit{Hybrid Blackjack} (Fig.~\ref{fig:architectures}), the hybrid version uses the same frontend but adds a Node.js/Express backend. This backend runs the game logic, verifies wallet ownership via SIWE \cite{EIP4361}, and issues JWTs for authenticated API requests, with Redis used for fast in-memory storage. MetaMask still signs all on-chain actions such as deposits and bets. The Solidity contract verifies backend EIP-712 signatures \cite{EIP712}, manages balances, enforces solvency, and settles outcomes, while the gameplay itself is executed off-chain to reduce gas costs and the number of on-chain transactions.
 
 
 \begin{figure*}[t]
@@ -209,9 +209,9 @@ Funds locked on-chain before each round to ensure payouts are covered &
 Similar solvency enforced on-chain before gameplay starts; validated again when results are submitted \\
 \hline
 
-\textbf{Scalability} &
-Limited scalability due to high gas cost and confirmation time per action &
-Improved scalability by handling gameplay off-chain and minimizing on-chain operations \\
+\textbf{On-chain Load} &
+High, since every action incurs gas cost and confirmation delay &
+Lower, since gameplay is handled off-chain and only essential operations are on-chain \\
 \hline
 
 \textbf{Technical stack} &
@@ -222,7 +222,7 @@ Same stack plus backend (Node.js, Express), SIWE and JWT for authentication, and
 \end{tabular}
 \end{table*}
 
-Detailed comparison is presented in Table~\ref{table:hybrid_vs_onchian}, and it highlights the core trade-off between the two architectures. The fully on-chain model maximizes transparency and decentralization but suffers from high gas costs and latency, making it less suitable for large-scale or fast-paced gameplay. The hybrid model improves scalability by moving gameplay off-chain, though it introduces trust assumptions in the backend server. Evaluating both approaches on a Layer-2 network (Arbitrum One) shows how these architectural choices affect performance metrics such as gas usage and confirmation latency, and what they imply for designing scalable Web3 games.
+Detailed comparison is presented in Table~\ref{table:hybrid_vs_onchian}, and it highlights the core trade-off between the two architectures. The fully on-chain model maximizes transparency and decentralization but suffers from high gas costs and latency, making it less suitable for fast-paced gameplay. The hybrid model reduces on-chain load by moving gameplay off-chain, though it introduces trust assumptions in the backend server. Evaluating both approaches on a Layer-2 network (Arbitrum One) shows how these architectural choices affect performance metrics such as gas usage and confirmation latency, and what they imply for designing Web3 games.
 
 
 \subsection{Load Tests and Data Collection}
@@ -310,7 +310,7 @@ Finalize Game        & Hybrid   & 0.0028 & App oracle  & 1674 \\
 \label{fig:conf_time}
 \end{figure}
 
-The comparison reveals that although both architectures maintain low per-action costs, the fully on-chain version accumulates higher fees and longer confirmation times, reducing gameplay fluidity. The hybrid model mitigates these issues by processing most actions off-chain and delegating finalization costs to an oracle account, resulting in improved scalability and responsiveness. However, this efficiency comes at the expense of full decentralization, requiring partial trust in backend operations. Overall, the results highlight a key trade-off between transparency, performance, and user experience in Web3 gaming architectures.
+The comparison reveals that although both architectures maintain low per-action costs, the fully on-chain version accumulates higher fees and longer confirmation times, reducing gameplay fluidity. The hybrid model mitigates these issues by processing most actions off-chain and delegating finalization costs to an oracle account, resulting in lower on-chain load and improved responsiveness. However, this efficiency comes at the expense of full decentralization, requiring partial trust in backend operations. Overall, the results highlight a key trade-off between transparency, performance, and user experience in Web3 gaming architectures.
 
 \subsection{Early User Responses}
 The first phase of the user study explores participants’ initial experiences with the fully on-chain and hybrid versions of the Blackjack app. Without prior knowledge of technical details, costs, or openness, their responses capture authentic first impressions of gameplay, speed, and usability.
@@ -561,7 +561,7 @@ The results suggest the following guidelines for Web3 game designers.
 Several limitations should be considered when interpreting the results. The user study had a small sample, with 23 responses in total, so the preference distributions are indicative and not statistically conclusive. The author served as the sole moderator and interviewer, which supports consistency but may have influenced participants' answers. Participants played with pre-funded balances and a pre-configured bet, so the study does not capture wallet setup or funding friction, which are known onboarding barriers. Responses were self-reported through a questionnaire and a short interview. The load test used three wallets playing at a single table, so it measures per-action cost and latency under light multiplayer load and does not show how either architecture scales to many concurrent players. Only one game, Blackjack, was studied, so the findings may not transfer to other game genres or to higher-stakes settings. Finally, the cost comparison depends on who pays for settlement: in the hybrid version the operator's oracle pays for finalizing the game, which lowers the player's cost but not the total cost of the system.
 
 \section{Concluding Remarks}
-This study highlights a fundamental trade-off in Web3 game design between decentralization and usability. The technical evaluation shows that fully on-chain architectures provide strong guarantees of transparency, verifiability, and trustlessness, but introduce significant friction through higher transaction costs and confirmation delays. These constraints negatively impact gameplay fluidity, making fully on-chain solutions less suitable for fast-paced or interaction-heavy gaming scenarios. In contrast, the hybrid architecture improves scalability, reduces latency, and lowers user costs by offloading gameplay logic off-chain, resulting in a smoother and more responsive experience.
+This study highlights a fundamental trade-off in Web3 game design between decentralization and usability. The technical evaluation shows that fully on-chain architectures provide strong guarantees of transparency, verifiability, and trustlessness, but introduce significant friction through higher transaction costs and confirmation delays. These constraints negatively impact gameplay fluidity, making fully on-chain solutions less suitable for fast-paced or interaction-heavy gaming scenarios. In contrast, the hybrid architecture reduces on-chain load and latency and lowers user costs by offloading gameplay logic off-chain, resulting in a smoother and more responsive experience.
 
 The user study findings reinforce this trade-off. Most participants preferred the hybrid version due to its seamless gameplay and reduced need for repeated confirmations, which were widely perceived as disruptive in the fully on-chain version. At the same time, transparency and fairness remained important considerations, particularly in contexts involving real money or higher perceived risk. While users expressed a desire for verifiability, most did not expect to actively audit the system themselves; rather, the availability of transparency contributed to a general sense of trust.
 
